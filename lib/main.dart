@@ -31,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var _currentLocationText = "...";
 
   List<Map<String, double>> locationList = [];
+  Location keepUpdateLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 RaisedButton(
                   child: Text('ขอพิกัดต่อเนื่อง'),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    if(locationList.length > 0) {
+                      setState(() {
+                        locationList = [];
+                      });
+                    } else {
+                      keepUpdateLocation = new Location();
+                      keepUpdateLocation.onLocationChanged().listen((Map<String, double> newLocation){
+                        setState(() {
+                          locationList.insert(0, newLocation);
+                        });
+                      });
+                    }
+                  },
                 )
               ],
             ),
