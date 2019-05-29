@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 void main() async {
   runApp(MyApp());
@@ -27,15 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  File _image;
 
-  Widget showImage() {
-    if (_image == null) {
-      return Text('No image selected.');
-    } else {
-      return Image.file(_image, width: 250.0,); 
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,32 +41,19 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            showImage(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 RaisedButton(
-                  child: Text('ถ่ายภาพ'),
+                  child: Text('ขอพิกัดตอนนี้'),
                   onPressed: () async {
-                    var file = await ImagePicker.pickImage(source: ImageSource.camera);
-
-                    print(file.path);
-
-                    setState(() {
-                      _image = file;
-                    });
+                    
                   },
                 ),
                 RaisedButton(
-                  child: Text('เลือกรูปภาพ'),
+                  child: Text('ขอพิกัดต่อเนื่อง'),
                   onPressed: () async {
-                    var file = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-                    print(file.path);
-
-                    setState(() {
-                      _image = file;
-                    });
+                   
                   },
                 )
               ],
