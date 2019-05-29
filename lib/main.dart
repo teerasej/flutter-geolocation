@@ -28,8 +28,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   var _currentLocationText = "...";
+
+  List<Map<String, double>> locationList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     var location = Location();
                     var currentLocation = await location.getLocation();
 
-                    var locationText = '${currentLocation['latitude']} ${currentLocation['longitude']}';
+                    var locationText =
+                        '${currentLocation['latitude']}, ${currentLocation['longitude']}';
 
                     print(locationText);
                     setState(() {
@@ -62,11 +64,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 RaisedButton(
                   child: Text('ขอพิกัดต่อเนื่อง'),
-                  onPressed: () async {
-                   
-                  },
+                  onPressed: () async {},
                 )
               ],
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: locationList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var location = locationList[index];
+                  var locationText = '${location['latitude']}, ${location['longitude']}';
+
+                  return ListTile(title: Text(locationText),);
+                },
+              ),
             )
           ],
         ),
