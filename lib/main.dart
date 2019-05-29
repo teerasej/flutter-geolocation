@@ -30,8 +30,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _currentLocationText = "...";
 
-  List<Map<String, double>> locationList = [];
-  Location keepUpdateLocation;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -51,48 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 RaisedButton(
                   child: Text('ขอพิกัดตอนนี้'),
                   onPressed: () async {
-                    var location = Location();
-                    var currentLocation = await location.getLocation();
-
-                    var locationText =
-                        '${currentLocation['latitude']}, ${currentLocation['longitude']}';
-
-                    print(locationText);
-                    setState(() {
-                      _currentLocationText = locationText;
-                    });
+                    
                   },
                 ),
                 RaisedButton(
                   child: Text('ขอพิกัดต่อเนื่อง'),
                   onPressed: () async {
-                    if(locationList.length > 0) {
-                      setState(() {
-                        locationList = [];
-                      });
-                    } else {
-                      keepUpdateLocation = new Location();
-                      keepUpdateLocation.onLocationChanged().listen((Map<String, double> newLocation){
-                        setState(() {
-                          locationList.insert(0, newLocation);
-                        });
-                      });
-                    }
+                    
                   },
                 )
               ],
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: locationList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var location = locationList[index];
-                  var locationText = '${location['latitude']}, ${location['longitude']}';
-
-                  return ListTile(title: Text(locationText),);
-                },
-              ),
-            )
+            
           ],
         ),
       ),
