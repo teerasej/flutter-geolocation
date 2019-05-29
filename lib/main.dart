@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  var _currentLocationText = "...";
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +45,19 @@ class _MyHomePageState extends State<MyHomePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                Text('$_currentLocationText'),
                 RaisedButton(
                   child: Text('ขอพิกัดตอนนี้'),
                   onPressed: () async {
-                    
+                    var location = Location();
+                    var currentLocation = await location.getLocation();
+
+                    var locationText = '${currentLocation['latitude']} ${currentLocation['longitude']}';
+
+                    print(locationText);
+                    setState(() {
+                      _currentLocationText = locationText;
+                    });
                   },
                 ),
                 RaisedButton(
